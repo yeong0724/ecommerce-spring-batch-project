@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+ecommerce-app-infra/data/*
+data/*
