@@ -38,3 +38,5 @@ out/
 
 ecommerce-app-infra/data/*
 data/*
+
+.run/*
