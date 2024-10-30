@@ -11,8 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Sql("/sql/schema.sql")
 @AutoConfigureObservability
+@Sql("/sql/schema.sql")
 @SpringBatchTest
 @SpringJUnitConfig(classes = {BatchApplication.class})
 public abstract class BaseBatchIntegrationTest {
