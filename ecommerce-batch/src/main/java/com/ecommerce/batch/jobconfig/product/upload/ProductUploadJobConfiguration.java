@@ -19,10 +19,13 @@ import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.support.SynchronizedItemStreamReader;
+import org.springframework.batch.item.support.builder.SynchronizedItemStreamReaderBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
@@ -45,28 +48,35 @@ public class ProductUploadJobConfiguration {
     @Bean
     public Step productUploadStep(
             JobRepository jobRepository,
-            PlatformTransactionManager dataSourceTransactionManager,
+            PlatformTransactionManager transactionManager,
             StepExecutionListener stepExecutionListener,
             ItemReader<ProductUploadCsvRow> productReader,
             ItemProcessor<ProductUploadCsvRow, Product> productProcessor,
-            ItemWriter<Product> productWriter
+            ItemWriter<Product> productWriter,
+            TaskExecutor taskExecutor
     ) {
         return new StepBuilder("productUploadStep", jobRepository)
-                .<ProductUploadCsvRow, Product>chunk(1000, dataSourceTransactionManager)
+                .<ProductUploadCsvRow, Product>chunk(1000, transactionManager)
                 .reader(productReader)
                 .processor(productProcessor)
                 .writer(productWriter)
                 .allowStartIfComplete(true)
                 .listener(stepExecutionListener)
+                .taskExecutor(taskExecutor)
                 .build();
     }
 
+    /**
+     * Thread Safe 한 Reader 로 교체
+     * FlatFileItemReader -> SynchronizedItemStreamReader
+     */
     @Bean
     @StepScope
-    public FlatFileItemReader<ProductUploadCsvRow> productReader(
+    public SynchronizedItemStreamReader<ProductUploadCsvRow> productReader(
             @Value("#{jobParameters['inputFilePath']}") String path
     ) {
-        return new FlatFileItemReaderBuilder<ProductUploadCsvRow>()
+
+        FlatFileItemReader<ProductUploadCsvRow> fileItemReader = new FlatFileItemReaderBuilder<ProductUploadCsvRow>()
                 .name("productReader")
                 .resource(new FileSystemResource(path))
                 .delimited()
@@ -74,6 +84,8 @@ public class ProductUploadJobConfiguration {
                 .targetType(ProductUploadCsvRow.class)
                 .linesToSkip(1)
                 .build();
+
+        return new SynchronizedItemStreamReaderBuilder<ProductUploadCsvRow>().delegate(fileItemReader).build();
     }
 
     @Bean
