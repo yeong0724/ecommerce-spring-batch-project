@@ -6,6 +6,7 @@ import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -21,5 +22,20 @@ public class BatchStepExecutionListener implements StepExecutionListener, ChunkL
         log.info("after step - execution context: {}", stepExecution.getExecutionContext());
         manager.pushMetrics(Map.of("job_name", stepExecution.getJobExecution().getJobInstance().getJobName()));
         return ExitStatus.COMPLETED;
+    }
+
+    @Override
+    public void afterChunk(ChunkContext context) {
+        manager.pushMetrics(Map.of(
+                "job_name",
+                context.getStepContext()
+                        .getStepExecution()
+                        .getJobExecution()
+                        .getJobInstance()
+                        .getJobName()
+                )
+        );
+
+        ChunkListener.super.afterChunk(context);
     }
 }
