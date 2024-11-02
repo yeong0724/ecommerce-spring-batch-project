@@ -37,7 +37,7 @@ out/
 .vscode/
 
 ecommerce-app-infra/data/*
-data/*
+
 
 .run/*
 .DS*

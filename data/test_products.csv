@@ -1,0 +1,7 @@
+sellerId,category,productName,salesStartDate,salesEndDate,productStatus,brand,manufacturer,salesPrice,stockQuantity
+32,디지털,스킨케어 세트,2022-02-21,2025-03-03,AVAILABLE,아모레퍼시픽,맥도날드코리아,82347,168
+1,가전,스마트폰,2023-08-22,2026-04-06,DISCONTINUED,나이키,맥도날드코리아,66446,497
+22,가구,기타,2021-07-27,2025-10-15,AVAILABLE,아모레퍼시픽,현대자동차,301222,482
+31,패션,축구공,2021-04-15,2024-09-04,AVAILABLE,현대,LG전자,307895,667
+9,음악,TV,2021-12-21,2024-12-13,OUT_OF_STOCK,삼성,현대자동차,175277,613
+26,서적,레고,2023-09-03,2026-01-28,OUT_OF_STOCK,맥도날드,현대자동차,218576,605
