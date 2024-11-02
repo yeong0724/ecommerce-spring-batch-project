@@ -38,6 +38,8 @@ out/
 
 ecommerce-app-infra/data/*
 
+data/products.csv
+data/random_products.csv
 
 .run/*
 .DS*
