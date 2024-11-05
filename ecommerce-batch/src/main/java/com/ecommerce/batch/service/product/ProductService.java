@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -38,4 +40,7 @@ public class ProductService {
         );
     }
 
+    public List<String> getProductIds() {
+        return jdbcTemplate.queryForList("SELECT product_id FROM products", String.class);
+    }
 }

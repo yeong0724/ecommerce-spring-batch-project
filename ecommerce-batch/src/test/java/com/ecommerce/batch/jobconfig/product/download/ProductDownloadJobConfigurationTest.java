@@ -89,6 +89,7 @@ class ProductDownloadJobConfigurationTest extends BaseBatchIntegrationTest {
     private JobParameters jobParameters() {
         return new JobParametersBuilder()
                 .addJobParameter("outputFilePath", new JobParameter<>(outputFile.getPath(), String.class, false))
+                .addJobParameter("gridSize", new JobParameter<>(2, Integer.class, false))
                 .toJobParameters();
     }
 }
