@@ -19,7 +19,7 @@ public class BatchApplication {
         return new PushGateway(url);
     }
 
-    @Bean("productUploadExecutor")
+    @Bean("productExecutor")
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(128);

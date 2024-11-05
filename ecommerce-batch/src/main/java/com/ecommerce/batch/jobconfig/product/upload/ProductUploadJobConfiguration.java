@@ -78,7 +78,7 @@ public class ProductUploadJobConfiguration {
     @Bean
     @JobScope
     public TaskExecutorPartitionHandler filePartitionHandler(
-            @Qualifier("productUploadExecutor") TaskExecutor taskExecutor,
+            @Qualifier("productExecutor") TaskExecutor taskExecutor,
             Step productUploadStep,
             @Value("#{jobParameters['gridSize']}") int gridSize
     ) {
@@ -97,7 +97,7 @@ public class ProductUploadJobConfiguration {
             ItemReader<ProductUploadCsvRow> productReader,
             ItemProcessor<ProductUploadCsvRow, Product> productProcessor,
             ItemWriter<Product> productWriter,
-            @Qualifier("productUploadExecutor") TaskExecutor taskExecutor
+            @Qualifier("productExecutor") TaskExecutor taskExecutor
     ) {
         return new StepBuilder("productUploadStep", jobRepository)
                 .<ProductUploadCsvRow, Product>chunk(1000, transactionManager)
