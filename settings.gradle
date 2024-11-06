@@ -1,3 +1,4 @@
 rootProject.name = 'ecommerce-springbatch'
 include 'ecommerce-batch'
+include 'ecommerce-api'
 
