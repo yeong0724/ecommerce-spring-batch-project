@@ -2,7 +2,7 @@ package com.ecommerce.controller.product;
 
 import com.ecommerce.dto.product.ProductResponse;
 import com.ecommerce.dto.product.ProductResult;
-import com.ecommerce.service.ProductService;
+import com.ecommerce.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

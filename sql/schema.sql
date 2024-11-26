@@ -1,3 +1,4 @@
+-- PRODUCTS TABLE
 CREATE TABLE products
 (
     product_id       varchar(255) PRIMARY KEY,
@@ -21,6 +22,7 @@ CREATE INDEX idx_products_brand ON products (brand);
 CREATE INDEX idx_products_manufacturer ON products (manufacturer);
 CREATE INDEX idx_products_seller_id ON products (seller_id);
 
+-- ORDERS TABLE
 CREATE TABLE orders
 (
     order_id BIGSERIAL PRIMARY KEY,
@@ -31,6 +33,7 @@ CREATE TABLE orders
 
 CREATE INDEX idx_orders_customer_id ON orders (customer_id);
 
+-- ORDER_ITEMS TABLE
 CREATE TABLE order_items
 (
     order_item_id BIGSERIAL PRIMARY KEY,
@@ -43,7 +46,7 @@ CREATE TABLE order_items
 CREATE INDEX idx_order_items_order_id ON order_items (order_id);
 CREATE INDEX idx_order_items_product_id ON order_items (product_id);
 
-
+-- PAYMENT TABLE
 CREATE TABLE payment
 (
     payment_id BIGSERIAL PRIMARY KEY,

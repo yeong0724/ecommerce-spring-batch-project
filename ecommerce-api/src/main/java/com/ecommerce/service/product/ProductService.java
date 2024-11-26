@@ -1,10 +1,10 @@
-package com.ecommerce.service;
+package com.ecommerce.service.product;
 
 import com.ecommerce.domain.product.Product;
 import com.ecommerce.dto.product.ProductResult;
 import com.ecommerce.exception.InsufficientStockException;
 import com.ecommerce.exception.ProductNotFoundException;
-import com.ecommerce.repository.ProductRepository;
+import com.ecommerce.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

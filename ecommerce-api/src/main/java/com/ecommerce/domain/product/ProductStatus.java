@@ -1,5 +1,8 @@
 package com.ecommerce.domain.product;
 
+import lombok.Getter;
+
+@Getter
 public enum ProductStatus {
     AVAILABLE("판매 중"),
     OUT_OF_STOCK("품절"),
